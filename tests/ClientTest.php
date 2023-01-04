@@ -6,7 +6,7 @@ final class ClientTest extends TestCase
 
     public function testClientWorks(): void
     {
-        $client = OpenAI::client("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");
+        $client = OpenAI::client("sk-");
         $response = $client->completions()->create([
             'prompt' => 'PHP is',
             'model' => 'text-davinci-003',
