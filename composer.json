@@ -34,11 +34,7 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        },
-        "files": [
-            "src/OpenAI.php",
-            "src/Email.php"
-        ]
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
