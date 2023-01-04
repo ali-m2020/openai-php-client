@@ -58,6 +58,7 @@ final class HttpTransporter implements Transporter
             $response['errStatusCode'] = 500; //wrap all errors under a generic error
             $response['errMessage'] = $response['error']['message'];
             $response['errType'] = $response['error']['type'];
+
             return $response;
         }
         //by defaul all these fields are empty

@@ -1,17 +1,18 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 use PHPUnit\Framework\TestCase;
 
 final class ClientTest extends TestCase
 {
-
     public function testClientWorks(): void
     {
-        $client = OpenAI::client("sk-");
+        $client = OpenAI::client('sk-');
         $response = $client->completions()->create([
             'prompt' => 'PHP is',
             'model' => 'text-davinci-003',
             'max_tokens' => 20,
-            'temperature' => 0
+            'temperature' => 0,
         ]);
         // dump($response);
 
@@ -23,7 +24,6 @@ final class ClientTest extends TestCase
         $this->assertEmpty($response->errStatusCode);
         $this->assertEmpty($response->errMessage);
         $this->assertEmpty($response->errType);
-        $this->assertNotEmpty($response->choices[0]);//the actual response of the OpenAi to our prompt
-        
+        $this->assertNotEmpty($response->choices[0]); //the actual response of the OpenAi to our prompt
     }
 }
