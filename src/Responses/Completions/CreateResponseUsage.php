@@ -19,9 +19,9 @@ final class CreateResponseUsage
     public static function from(array $attributes): self
     {
         return new self(
-            $attributes['prompt_tokens'],
+            $attributes['prompt_tokens'] ?? 0,
             $attributes['completion_tokens'] ?? null,
-            $attributes['total_tokens'],
+            $attributes['total_tokens'] ?? 0,
         );
     }
 

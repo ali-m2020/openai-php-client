@@ -23,8 +23,11 @@ final class CreateResponse implements Response
     private function __construct(
         public readonly string $id,
         public readonly string $object,
-        public readonly int $created,
+        public readonly int|string $created,
         public readonly string $model,
+        public readonly ?int $errStatusCode,
+        public readonly string $errMessage,
+        public readonly string $errType,
         public readonly array $choices,
         public readonly CreateResponseUsage $usage,
     ) {
@@ -37,6 +40,16 @@ final class CreateResponse implements Response
      */
     public static function from(array $attributes): self
     {
+        $attributes['choices'] = isset($attributes['choices']) && $attributes['choices'] ? $attributes['choices'] : [];
+        $attributes['id'] = isset($attributes['id']) && $attributes['id'] ? $attributes['id'] : '';
+        $attributes['object'] = isset($attributes['object']) && $attributes['object'] ? $attributes['object'] : '';
+        $attributes['created'] = isset($attributes['created']) && $attributes['created'] ? $attributes['created'] : '';
+        $attributes['model'] = isset($attributes['model']) && $attributes['model'] ? $attributes['model'] : '';
+        $attributes['usage'] = isset($attributes['usage']) && $attributes['usage'] ? $attributes['usage'] : [];
+        $attributes['statusCode'] = isset($attributes['statusCode']) && $attributes['statusCode'] ? $attributes['statusCode'] : null;
+        $attributes['error']['errMessage'] = isset($attributes['error']['errMessage']) && $attributes['error']['errMessage'] ? $attributes['error']['errMessage'] : '';
+        $attributes['error']['errType'] = isset($attributes['error']['errType']) && $attributes['error']['errType'] ? $attributes['error']['errType'] : '';
+
         $choices = array_map(fn (array $result): CreateResponseChoice => CreateResponseChoice::from(
             $result
         ), $attributes['choices']);
@@ -46,6 +59,9 @@ final class CreateResponse implements Response
             $attributes['object'],
             $attributes['created'],
             $attributes['model'],
+            $attributes['statusCode'],
+            $attributes['errMessage'],
+            $attributes['errType'],
             $choices,
             CreateResponseUsage::from($attributes['usage'])
         );

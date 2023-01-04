@@ -54,8 +54,16 @@ final class HttpTransporter implements Transporter
         }
 
         if (isset($response['error'])) {
-            throw new ErrorException($response['error']);
+            // throw new ErrorException($response['error']);
+            $response['errStatusCode'] = 500; //wrap all errors under a generic error
+            $response['errMessage'] = $response['error']['message'];
+            $response['errType'] = $response['error']['type'];
+            return $response;
         }
+        //by defaul all these fields are empty
+        $response['errStatusCode'] = '';
+        $response['errMessage'] = '';
+        $response['errType'] = '';
 
         return $response;
     }
